@@ -85,11 +85,11 @@ function AddBorderToCard(){
 // }
 
 $(document)
-.on('ready',function(){
-    var data = localStorage.getItem("datas");
-    var localData = data ? JSON.parse(data) : [];
+ .on('ready',function(){
+     var data = localStorage.getItem("datas");
+     var localData = data ? JSON.parse(data) : [];
     localStorage.setItem("datas", JSON.stringify(localData));
-})
+ })
 .on('click','[id^=button]',function(e){
     var id = e.target.id.replace('button','');
     var parentElement = $(e.target).parent();
@@ -97,16 +97,15 @@ $(document)
     
     if(parentElement.hasClass('fav')){
         parentElement.removeClass('fav');
-        localStorage.removeItem("datas",JSON.stringify(localData));
+        localStorage.removeItem("datas"+e.target.id);
     }else{
         currentDatas.push({id:id});
         parentElement.addClass('fav');
         
-        localStorage.setItem("datas",JSON.stringify(currentDatas));
+        localStorage.setItem("datas"+e.target.id,JSON.stringify(currentDatas));
     };
 })
 .on('keypress', '[name^=foodcard]',function(e){
-    debugger
     let card = $(e.target);
     if(e.keyCode == 102){
         if(card.hasClass('fav')){
